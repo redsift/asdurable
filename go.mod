@@ -3,7 +3,7 @@ module github.com/redsift/asdurable
 go 1.16
 
 require (
-	github.com/aerospike/aerospike-client-go v4.5.0+incompatible
+	github.com/aerospike/aerospike-client-go v1.31.0
 	github.com/onsi/ginkgo v1.16.1 // indirect
 	github.com/onsi/gomega v1.11.0 // indirect
 	github.com/yuin/gopher-lua v0.0.0-20200816102855-ee81675732da // indirect
