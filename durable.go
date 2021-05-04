@@ -17,10 +17,10 @@ func main() {
 	n := flag.Int("n", 100, "number of items to create and delete")
 
 	flag.Parse()
-	policy := aerospike.NewWritePolicy(0, 0)
+	var policy *aerospike.WritePolicy
 	if *durable {
+		policy := aerospike.NewWritePolicy(0, 0)
 		policy.DurableDelete = true
-
 	}
 
 	// define a client to connect to
@@ -35,11 +35,14 @@ func main() {
 		if err != nil {
 			log.Fatalln(err)
 		}
-		err = client.PutBins(policy, key,
-			aerospike.NewBin("seq", 123))
+		for generation := 0; generation < 10; generation++ {
+			err = client.PutBins(policy, key,
+				aerospike.NewBin("seq", generation))
 
-		if err != nil {
-			log.Fatalln(err)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
 		}
 
 	}
