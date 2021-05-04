@@ -31,7 +31,7 @@ func main() {
 
 	log.Println("creating", *n, "items")
 	for i := 0; i < *n; i++ {
-		key, err := aerospike.NewKey("test", "amnontest", i)
+		key, err := aerospike.NewKey("bender", "amnontest", i)
 		if err != nil {
 			log.Fatalln(err)
 		}
@@ -52,7 +52,7 @@ func main() {
 	// delete the key, and check if key exists
 	log.Println("deleting", *n, "items")
 	for i := 0; i < *n; i++ {
-		key, err := aerospike.NewKey("test", "amnontest", i)
+		key, err := aerospike.NewKey("bender", "amnontest", i)
 		if err != nil {
 			log.Fatalln(err)
 		}
