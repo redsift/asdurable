@@ -9,9 +9,17 @@ import (
 	"github.com/aerospike/aerospike-client-go"
 )
 
+func randbytes(buf []byte, n int) []byte {
+	len := rand.Intn(n)
+	for i := 0; i < len; i++ {
+		buf[i] = 'a' + byte(rand.Intn(26))
+	}
+	return buf[:len]
+}
+
 func main() {
 	log.SetFlags(log.Lmicroseconds)
-
+	buf := make([]byte, 8001)
 	asHost := flag.String("ashost", "127.0.0.1", "Aerospike host")
 	asPort := flag.Int("asport", 3000, "Aerospike port")
 	durable := flag.Bool("durable", false, "durable deletes")
@@ -38,7 +46,7 @@ func main() {
 			log.Fatalln(err)
 		}
 		err = client.PutBins(policy, key,
-			aerospike.NewBin("seq", i))
+			aerospike.NewBin("seq", randbytes(buf, 8000)))
 
 		if err != nil {
 			log.Fatalln(err)
